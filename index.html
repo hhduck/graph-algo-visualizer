@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Graph Algorithm Visualizer</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/simulator.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+  <!-- ===== HOME PAGE ===== -->
+  <div id="home-page">
+    <header class="home-header">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <circle cx="4" cy="11" r="2.5" fill="white" />
+            <circle cx="18" cy="4" r="2.5" fill="white" />
+            <circle cx="18" cy="18" r="2.5" fill="white" />
+            <circle cx="11" cy="11" r="2" fill="white" opacity="0.5" />
+            <line x1="4" y1="11" x2="18" y2="4" stroke="white" stroke-width="1.5" opacity="0.6" />
+            <line x1="4" y1="11" x2="18" y2="18" stroke="white" stroke-width="1.5" opacity="0.6" />
+            <line x1="18" y1="4" x2="18" y2="18" stroke="white" stroke-width="1.5" opacity="0.6" />
+          </svg>
+        </div>
+        <div>
+          <div class="logo-text">GraphViz</div>
+          <div class="logo-sub">Algorithm Visualizer</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="font-size:0.8rem;color:var(--text-muted)">Lý thuyết đồ thị trực quan</div>
+        <button class="theme-toggle" onclick="toggleTheme()" title="Chuyển giao diện sáng/tối">
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-badge">
+        <svg width="8" height="8" viewBox="0 0 8 8">
+          <circle cx="4" cy="4" r="4" fill="#4ADE80" />
+        </svg>
+        5 thuật toán đồ thị cổ điển
+      </div>
+      <h1>Hiểu thuật toán đồ thị <span>qua trực quan hoá</span></h1>
+      <p>Xây dựng đồ thị tùy ý, chọn thuật toán và xem từng bước thực thi được mô phỏng theo thời gian thực.</p>
+    </section>
+
+    <div class="algo-grid" id="algo-grid">
+      <!-- Cards will be injected by JS -->
+    </div>
+  </div>
+
+  <!-- ===== SIMULATOR PAGE ===== -->
+  <div id="sim-page" style="display:none; flex-direction:column;">
+    <header class="sim-header">
+      <button class="sim-back-btn" onclick="goHome()">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+        Trang chủ
+      </button>
+
+      <div id="sim-algo-badge" class="sim-algo-badge"></div>
+      <div id="sim-title-full" class="sim-title-full"></div>
+
+      <div class="sim-header-right">
+        <div class="speed-control">
+          <span>Tốc độ</span>
+          <input type="range" id="speed-slider" min="1" max="5" value="3" title="Điều chỉnh tốc độ mô phỏng">
+          <span id="speed-label">Bình thường</span>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()" title="Chuyển giao diện sáng/tối">
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="sim-body">
+      <!-- Canvas Area -->
+      <div class="canvas-area">
+        <div class="canvas-toolbar">
+          <button class="toolbar-btn active" id="btn-select" onclick="setMode('select')" title="Chế độ chọn (S)">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M2 1L10 5L6 6L4 10L2 1Z" fill="currentColor" />
+            </svg>
+            Chọn
+          </button>
+          <button class="toolbar-btn" id="btn-add-node" onclick="setMode('addNode')" title="Thêm nút (N)">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <circle cx="6" cy="6" r="4" stroke="currentColor" stroke-width="1.5" />
+              <path d="M6 3v6M3 6h6" stroke="currentColor" stroke-width="1.2" />
+            </svg>
+            Thêm nút
+          </button>
+          <button class="toolbar-btn" id="btn-add-edge" onclick="setMode('addEdge')" title="Thêm cạnh (E)">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <circle cx="2" cy="6" r="1.5" fill="currentColor" />
+              <circle cx="10" cy="6" r="1.5" fill="currentColor" />
+              <path d="M3.5 6h5" stroke="currentColor" stroke-width="1.5" />
+            </svg>
+            Thêm cạnh
+          </button>
+          <button class="toolbar-btn" id="btn-delete" onclick="setMode('delete')" title="Xóa (D)">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M2 2l8 8M10 2L2 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+            Xóa
+          </button>
+          <div style="width:1px;height:20px;background:var(--border);margin:0 4px"></div>
+          <button class="toolbar-btn" id="btn-directed" onclick="toggleDirected()" title="Bật/tắt có hướng">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M2 6h8M8 3l3 3-3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+            <span id="directed-label">Vô hướng</span>
+          </button>
+        </div>
+
+        <canvas id="main-canvas"></canvas>
+
+        <div class="canvas-legend" id="canvas-legend">
+          <div class="legend-item">
+            <div class="legend-node" style="background:var(--node-unvisited);border-color:var(--node-border)"></div>
+            <span>Chưa thăm</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-node"
+              style="background:rgba(245,158,11,0.3);border-color:var(--node-active);border-width:2px"></div>
+            <span>Đang xử lý</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-node"
+              style="background:rgba(59,130,246,0.3);border-color:var(--node-visited);border-width:2px"></div>
+            <span>Đã thăm</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-node"
+              style="background:rgba(16,185,129,0.3);border-color:var(--node-path);border-width:2px"></div>
+            <span>Kết quả</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-edge" style="background:var(--edge-path)"></div>
+            <span>Đường đi / MST</span>
+          </div>
+          <div id="neg-legend" class="legend-item" style="display:none">
+            <div class="legend-edge" style="background:var(--neg-weight)"></div>
+            <span>Cạnh âm</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Panel -->
+      <div class="right-panel">
+        <div class="panel-tabs">
+          <button class="panel-tab active" onclick="switchTab('code')" id="tab-code">Mã giả</button>
+          <button class="panel-tab" onclick="switchTab('data')" id="tab-data">Dữ liệu</button>
+          <button class="panel-tab" onclick="switchTab('log')" id="tab-log">Nhật ký</button>
+        </div>
+        <div class="panel-content" id="panel-code">
+          <div class="pseudocode-block" id="pseudocode"></div>
+        </div>
+        <div class="panel-content" id="panel-data" style="display:none">
+          <div class="data-inspector" id="data-inspector"></div>
+        </div>
+        <div class="panel-content" id="panel-log" style="display:none">
+          <div class="step-log" id="step-log"></div>
+        </div>
+      </div>
+
+      <!-- Control Bar -->
+      <div class="control-bar">
+        <div class="playback-controls">
+          <button class="ctrl-btn" onclick="stepBackward()" title="Bước lùi (←)" id="btn-prev">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </button>
+          <button class="ctrl-btn play-btn" onclick="togglePlay()" id="btn-play" title="Phát/Dừng (Space)">▶</button>
+          <button class="ctrl-btn" onclick="stepForward()" title="Bước tiến (→)" id="btn-next">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+
+        <span class="step-info" id="step-info">Bước 0 / 0</span>
+
+        <div class="divider"></div>
+
+        <div class="start-node-sel">
+          <span>Nút bắt đầu:</span>
+          <select id="start-node-select" onchange="onStartNodeChange()"></select>
+        </div>
+        <div id="end-node-sel" class="start-node-sel" style="display:none">
+          <span>Nút đích:</span>
+          <select id="end-node-select" onchange="onEndNodeChange()"></select>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="graph-controls">
+          <button class="action-btn" onclick="loadExample()">Đồ thị mẫu</button>
+          <button class="action-btn" onclick="clearGraph()">Xóa đồ thị</button>
+          <button class="action-btn primary" onclick="runAlgorithm()">
+            ▶ Chạy lại
+          </button>
+        </div>
+
+        <div class="kbd-hints">
+          <div class="kbd-hint"><kbd>Space</kbd> Phát/Dừng</div>
+          <div class="kbd-hint"><kbd>←</kbd> Lùi</div>
+          <div class="kbd-hint"><kbd>→</kbd> Tiến</div>
+          <div class="kbd-hint"><kbd>N</kbd> Nút</div>
+          <div class="kbd-hint"><kbd>E</kbd> Cạnh</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Weight Input Modal -->
+  <div class="modal-overlay" id="weight-modal">
+    <div class="modal">
+      <h3>Trọng số cạnh</h3>
+      <input type="number" id="weight-input" value="1" min="-99" max="999" step="1" placeholder="Nhập trọng số...">
+      <div class="modal-warning" id="modal-warning">⚠ Thuật toán này không hỗ trợ trọng số âm!</div>
+      <div class="modal-btns">
+        <button class="modal-cancel" onclick="cancelEdge()">Hủy</button>
+        <button class="modal-ok" onclick="confirmEdge()">Xác nhận</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Warning banner -->
+  <div class="warning-banner" id="warning-banner">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M8 2L1 14h14L8 2Z" stroke="white" stroke-width="1.5" stroke-linejoin="round" />
+      <path d="M8 7v3M8 11.5v.5" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+    </svg>
+    <span id="warning-text"></span>
+  </div>
+
+  <!-- Tooltip -->
+  <div class="tooltip" id="tooltip"></div>
+
+  <!-- JavaScript (load order matters: data → canvas → graph → algorithms → ui → app) -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/canvas.js"></script>
+  <script src="js/graph.js"></script>
+  <script src="js/algorithms.js"></script>
+  <script src="js/ui.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .algo-grid {
+    padding: 0 1.5rem 3rem;
+    gap: 2rem;
+  }
+
+  .section-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sim-body {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 280px auto;
+  }
+
+  .right-panel {
+    grid-row: 2/3;
+    grid-column: 1/2;
+    border-left: none;
+    border-top: 1px solid var(--border);
+  }
+
+  .control-bar {
+    grid-row: 3/4;
+    grid-column: 1/2;
+  }
+
+  .kbd-hints {
+    display: none;
+  }
+}

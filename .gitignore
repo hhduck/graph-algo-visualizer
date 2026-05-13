@@ -1,0 +1,12 @@
+# Ignore test scripts and Playwright artifacts (do not push tests to main repo)
+/test-scripts/
+/test-results/
+/.playwright/
+
+# Node modules and local env
+/node_modules/
+.env
+
+# Editor dirs
+/.vscode/
+.idea/

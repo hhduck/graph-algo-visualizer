@@ -1,0 +1,25 @@
+{
+  "name": "project-simulating-algorithms-in-the-graph-theory-module",
+  "version": "1.0.0",
+  "description": "**GraphViz – Algorithm Visualizer** là ứng dụng web trực quan hoá các thuật toán đồ thị kinh điển, phục vụ mục đích học tập và giảng dạy trong học phần **Lý thuyết đồ thị**. Ứng dụng cho phép người dùng tự xây dựng đồ thị, chọn thuật toán và quan sát từng bước thực thi được mô phỏng theo thời gian thực, kèm theo mã giả, bảng dữ liệu và nhật ký hoạt động.",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test --config=test-scripts/playwright.config.js",
+    "test:e2e": "playwright test --config=test-scripts/playwright.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kayazumi/Project-Simulating-algorithms-in-the-Graph-Theory-Module.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Kayazumi/Project-Simulating-algorithms-in-the-Graph-Theory-Module/issues"
+  },
+  "homepage": "https://github.com/Kayazumi/Project-Simulating-algorithms-in-the-Graph-Theory-Module#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.59.1"
+  }
+}

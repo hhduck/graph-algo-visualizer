@@ -1,0 +1,286 @@
+/* ===== DARK THEME (default) ===== */
+:root {
+  --bg: #0A0E1A;
+  --surface: #111827;
+  --surface2: #1a2236;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.18);
+  --text: #F1F5F9;
+  --text-muted: #64748B;
+  --text-dim: #94A3B8;
+  --accent: #6366F1;
+  --accent2: #8B5CF6;
+
+  --node-unvisited: #1E293B;
+  --node-border: #334155;
+  --node-active: #F59E0B;
+  --node-visited: #3B82F6;
+  --node-path: #10B981;
+  --edge-default: #334155;
+  --edge-traversed: #93C5FD;
+  --edge-path: #10B981;
+  --neg-weight: #EF4444;
+
+  --dfs-color: #F59E0B;
+  --bfs-color: #3B82F6;
+  --dijkstra-color: #10B981;
+  --bellman-color: #EF4444;
+  --prim-color: #8B5CF6;
+
+  --canvas-dot: rgba(255, 255, 255, 0.03);
+  --canvas-node-text: #94A3B8;
+  --canvas-node-text-active: #F1F5F9;
+  --canvas-weight-bg: #0A0E1A;
+  --canvas-weight-color: #94A3B8;
+}
+
+/* ===== LIGHT THEME ===== */
+[data-theme="light"] {
+  --bg: #F8FAFC;
+  --surface: #FFFFFF;
+  --surface2: #F1F5F9;
+  --border: rgba(0, 0, 0, 0.08);
+  --border-hover: rgba(0, 0, 0, 0.18);
+  --text: #0F172A;
+  --text-muted: #64748B;
+  --text-dim: #475569;
+  --accent: #4F46E5;
+  --accent2: #7C3AED;
+
+  --node-unvisited: #E2E8F0;
+  --node-border: #CBD5E1;
+  --node-active: #D97706;
+  --node-visited: #2563EB;
+  --node-path: #059669;
+  --edge-default: #CBD5E1;
+  --edge-traversed: #60A5FA;
+  --edge-path: #059669;
+  --neg-weight: #DC2626;
+
+  --canvas-dot: rgba(0, 0, 0, 0.06);
+  --canvas-node-text: #475569;
+  --canvas-node-text-active: #0F172A;
+  --canvas-weight-bg: #FFFFFF;
+  --canvas-weight-color: #475569;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ===== THEME TOGGLE BUTTON ===== */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  border-color: var(--border-hover);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text);
+  transform: scale(1.05);
+}
+
+[data-theme="light"] .theme-toggle {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .theme-toggle:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.theme-toggle .icon-sun,
+.theme-toggle .icon-moon {
+  transition: opacity 0.2s, transform 0.3s;
+}
+
+.theme-toggle .icon-sun {
+  display: none;
+}
+
+.theme-toggle .icon-moon {
+  display: block;
+}
+
+[data-theme="light"] .theme-toggle .icon-sun {
+  display: block;
+}
+
+[data-theme="light"] .theme-toggle .icon-moon {
+  display: none;
+}
+
+/* Light-theme overrides for components with hardcoded colors */
+[data-theme="light"] .hero h1 span {
+  background: linear-gradient(135deg, #4F46E5, #7C3AED);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-theme="light"] .hero-badge {
+  background: rgba(79, 70, 229, 0.1);
+  border-color: rgba(79, 70, 229, 0.25);
+  color: #4F46E5;
+}
+
+[data-theme="light"] .card-complexity {
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--text-dim);
+}
+
+[data-theme="light"] .toolbar-btn.active {
+  background: rgba(79, 70, 229, 0.12);
+  border-color: var(--accent);
+  color: #4F46E5;
+}
+
+[data-theme="light"] .panel-tab.active {
+  background: rgba(79, 70, 229, 0.05);
+}
+
+[data-theme="light"] .ctrl-btn {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .ctrl-btn:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .ctrl-btn.active {
+  background: rgba(79, 70, 229, 0.12);
+  border-color: var(--accent);
+  color: #4F46E5;
+}
+
+[data-theme="light"] kbd {
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--text-dim);
+}
+
+[data-theme="light"] .code-line.active {
+  background: rgba(217, 119, 6, 0.12);
+  color: #92400E;
+  border-left-color: #D97706;
+}
+
+[data-theme="light"] .code-line.executed {
+  color: #059669;
+}
+
+[data-theme="light"] .inspector-section {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+[data-theme="light"] .inspector-title {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="light"] .log-entry {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+[data-theme="light"] .dist-table tr.highlighted td {
+  background: rgba(217, 119, 6, 0.1);
+  color: #92400E;
+}
+
+[data-theme="light"] .modal {
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="light"] .modal input[type=number] {
+  background: var(--surface2);
+}
+
+[data-theme="light"] .warning-banner {
+  background: rgba(220, 38, 38, 0.95);
+  border-color: #DC2626;
+}
+
+[data-theme="light"] .algo-card {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .algo-card:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* ===================================================
+   SVG ICON PATCH
+   Add these rules to style.css (after the existing
+   theme variables, before or after the theme-toggle block).
+
+   They handle the two places where algo icons appear:
+     1. .card-icon  — the 48×48 coloured square on home cards
+     2. .sim-algo-badge — the pill in the simulator header
+   ================================================== */
+
+/* 1. Home card icon container
+      Remove font-size (was only meaningful for emoji).
+      The SVG's own width/height (24px) is used instead;
+      flexbox already centres it. */
+.card-icon {
+  font-size: 0;
+  /* suppress any residual emoji baseline gap  */
+}
+
+.card-icon svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: block;
+  /* remove inline-svg descender space          */
+}
+
+/* 2. Simulator header badge
+      The badge renders:  <span style="font-size:1.2rem">{SVG}</span> Name
+      font-size on a span doesn't scale an SVG — we normalise it here. */
+.sim-algo-badge span {
+  font-size: 0;
+  /* kill the inherited 1.2rem on the wrapper   */
+  display: inline-flex;
+  align-items: center;
+}
+
+.sim-algo-badge svg {
+  width: 20px;
+  /* slightly smaller to match the 0.9rem text  */
+  height: 20px;
+  flex-shrink: 0;
+  display: block;
+}
+
+/* Badge dot — replaces icon in simulator header */
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: inline-block;
+  margin-right: 8px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
